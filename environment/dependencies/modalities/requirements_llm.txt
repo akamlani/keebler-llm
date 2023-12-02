@@ -1,0 +1,6 @@
+tokenizers
+transformers
+datasets
+langchain
+llama-index
+sentence-transformers
