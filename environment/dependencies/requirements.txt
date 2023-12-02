@@ -1,0 +1,32 @@
+# core
+python-dotenv
+
+# file i/o, networking
+appdirs 
+pyyaml 
+hydra-core 
+fsspec
+requests
+
+# scientific computing
+numpy 
+pandas 
+scipy
+sympy
+
+# debugging/logging 
+tqdm
+ipdb 
+icecream
+watchdog 
+devtools[pygments]                  # https://python-devtools.helpmanual.io/usage/
+
+# terminal 
+coloredlogs
+termcolor 
+textual 
+rich 
+
+
+
+

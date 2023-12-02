@@ -1,0 +1,16 @@
+[build-system]
+requires      = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name                = "keebler_llm"
+version             = "0.0.1"
+authors             = [{name = "Ari Kamlani", email = "akamlani@gmail.com"}]
+description         = "AI LLM GenAI package"
+requires-python     = ">=3.9"
+readme              = "README.md"
+license             = {text = "MIT"}
+
+[tool.setuptools.packages.find]
+where               = ["."]
+include             = ["keebler_llm*"]
