@@ -9,19 +9,7 @@ from tenacity import (
     wait_random_exponential,        # for exponential backoff
 )  
 
-from    ...core.utils import read_env 
 from    ...core.services.rest import service_request
-
-
-
-def read_credentials(user_input:bool=False) -> str:
-    if user_input:
-        openai.api_key = getpass.getpass("OpenAI API Key: ")
-    else:
-        read_env('.env')
-        openai.api_key = os.getenv('OPENAI_API_KEY')
-
-    return openai.api_key
 
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(3))
