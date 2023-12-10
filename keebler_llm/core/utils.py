@@ -1,9 +1,10 @@
-import warnings
-import subprocess
-import logging 
-from typing import Any
+import  warnings
+import  subprocess
+import  logging 
+from    typing import Any
+from    appdirs import user_cache_dir
 
-from dotenv import dotenv_values, find_dotenv, load_dotenv
+from    dotenv import dotenv_values, find_dotenv, load_dotenv
 
 warnings.filterwarnings("ignore")
 warnings.simplefilter("ignore")
@@ -29,7 +30,7 @@ def read_env(path: str = ".env", verbose: bool = False) -> dict:
         config: dict = dotenv_values(path)
         return config
     except Exception as e:
-        logger.exception(f"Exception Occured Reading DotFile at Path: {root_path}:{e}")
+        logger.exception(f"Exception Occured Reading DotFile:{e}")
 
 
 def read_root_dir() -> str:
@@ -42,3 +43,22 @@ def read_root_dir() -> str:
         ["git", "rev-parse", "--show-toplevel"], 
         stdout=subprocess.PIPE, text=True
     ).stdout.strip()
+
+
+def get_cache_dir(author:str=None, app:str=None) -> str:
+    """Retrieves and creates the cache dir
+
+    Args:
+        author (str): author name to associate with cache directory, only used in windows.
+        app (str): project or applicaiton name of applicaition dir
+
+    Returns:
+        str: cache directory location
+
+    Examples:
+    >>> get_cache_dir('akamlani', Path('huggingface').joinpath('hub'))
+    """
+    cache_dir = user_cache_dir(app, author)
+    Path(cache_dir).mkdir(parents=True, exist_ok=True)
+    return cache_dir
+
