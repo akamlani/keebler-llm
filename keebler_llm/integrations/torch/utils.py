@@ -1,5 +1,5 @@
 import torch 
-
+from   torchsummary import summary 
 
 # images usally stored as [n, h, w, ch]
 # pytorch format: [ch, h, w] -> e.g., tensor.permute(2, 0, 1)
@@ -17,6 +17,21 @@ get_device              = lambda: torch.device("cuda" if torch.cuda.is_available
 is_gpu_avail            = lambda: torch.cuda.is_available()
 
 
+
+def get_model_param_count(model:Any) -> dict:
+    return dict(
+        params           = sum([p.numel() for p in model.parameters()]) /1_000_000, 
+        trainable_params = sum([p.numel() for p in model.parameters() if p.requires_grad]) /1_000_000
+    )
+
+def torch_get_device_properties() -> dict:
+    return dict(
+        version = torch.__version__, 
+        device  = get_device(), 
+        is_cuda = is_gpu_avail(),
+        gpu     = torch.cuda.get_device_name(get_device())
+    )
+
 def torch_seed_init(seed:int=42) -> None:
     """seeds torch environment and device as applicable
 
@@ -28,8 +43,6 @@ def torch_seed_init(seed:int=42) -> None:
         torch.cuda.manual_seed(seed)
         torch.backends.cudnn.deterministic = True
         torch.backends.cudnn.benchmark     = True
-
-
 
 def batch_to_device(batch: dict, target_device: torch.device):
     """Send a pytorch batch to a device (CPU/GPU).
