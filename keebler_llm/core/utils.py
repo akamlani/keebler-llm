@@ -2,6 +2,7 @@ import  warnings
 import  subprocess
 import  logging 
 from    typing import Any
+from    pathlib import Path 
 from    appdirs import user_cache_dir
 
 from    dotenv import dotenv_values, find_dotenv, load_dotenv
@@ -45,7 +46,7 @@ def read_root_dir() -> str:
     ).stdout.strip()
 
 
-def get_cache_dir(author:str=None, app:str=None) -> str:
+def read_cache_dir(author:str=None, app:str=None) -> str:
     """Retrieves and creates the cache dir
 
     Args:
